@@ -1,0 +1,24 @@
+title: asanakoy
+name: Artsiom's Blog
+author: Artsiom Sanakoyeu
+profile_url:  https://asanakoy.github.io
+twitter_username: artsiom_s
+baseurl: "/blog"
+description: >- # this means to ignore newlines until "baseurl:"
+ My thoughts on Machine Learning, Computer Vision and Programming.
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+excerpt_separator: <!--more-->
+plugins:
+  - jekyll-feed
+  - jekyll-archives
+exclude:
+  - Gemfile
+  - Gemfile.lock
+kramdown:
+  input: GFM
+  auto_ids: true
+  syntax_highlighter: rouge
+permalink:  /:year-:month-:day/:title

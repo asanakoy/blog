@@ -1,0 +1,16 @@
+<header class="site-header" role="banner" id='header-bar'>
+
+    <div class="wrapper">
+        {% assign default_paths = site.pages | map: "path" %}
+        <a class="site-title" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
+
+        <nav class="site-nav">
+            <a class="page-link" href="/" target="_blank">About</a>
+        </nav>
+        <nav class="site-nav">
+            <a class="page-link" href="{{ '/archive.html' | relative_url }}">Archive</a>
+        </nav>
+
+    </div>
+
+</header>
