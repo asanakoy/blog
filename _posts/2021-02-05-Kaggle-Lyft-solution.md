@@ -2,7 +2,7 @@
 layout: post
 comments: true
 title: "Winning solution for Kaggle challenge: Lyft Motion Prediction for Autonomous Vehicles."
-date: 2020-08-01
+date: 2021-02-05
 tags: kaggle cv
 thumbnail: "/assets/images/Kaggle-Lyft/thumbnail.png"
 ---
