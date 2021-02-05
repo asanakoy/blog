@@ -47,11 +47,11 @@ Team “Stochastic Uplift” members: [me](https://gdude.de/), [Dmytro Poplavski
 
 If you prefer video over text, I have also explained this solution in [YouTube video](https://youtu.be/3Yz8_x38qbc).
 
-# Content
+# Contents
 
-1. [Problem Description](#sec_problem)  
+1. [Problem Description](#problem)  
 2. [Input Data and Evaluation Metric](#input)
-3. [Method](#sec_method)
+3. [Method](#method)
 	- [Model](#model)
 	- [Ensemble learning](#ensembling)
 	- [Training details](#training)
@@ -61,7 +61,7 @@ If you prefer video over text, I have also explained this solution in [YouTube v
 	- [Final results](#results)
 4. [Conclusion](#conclusion)
 
-<a name="sec_problem"></a>
+<a name="problem"></a>
 # Problem Description
 
 This competition was organized by [Lyft Level 5](https://self-driving.lyft.com/level5/).
@@ -101,7 +101,7 @@ In this competition we had to tackle the motion prediction task.
 
 ![av-pipeline]({{ '/assets/images/Kaggle-Lyft/task.webp' | relative_url }}) 
 {: style="width: 65%;" class="center"} 
-*<font size="2"> Fig: Future motion prediciton problem. The AV needs to know whether the oncoming vehicle will turn right or go straight. Source: <a href="https://www.reddit.com/r/SelfDrivingCars/comments/l1i31x/motion_prediction_winners_of_lyfts_motion">link</a>.</font>*
+*<font size="2"> Fig: Future motion prediction problem. The AV needs to know whether the oncoming vehicle will turn right or go straight. Source: <a href="https://www.reddit.com/r/SelfDrivingCars/comments/l1i31x/motion_prediction_winners_of_lyfts_motion">link</a>.</font>*
 
 
 
@@ -141,7 +141,7 @@ This metric can be further decomposed into the product of 1-dimensional Gaussian
 
 
 
-<a name="sec_method"></a>
+<a name="method"></a>
 # Method
 
 <a name="model"></a>
@@ -172,7 +172,7 @@ Among the best performing backbones were [Xception41](https://arxiv.org/abs/1610
 Unfortunately, we didn’t have time to train all the models until convergence. Given the limited time and resources, the model with Xception41 as a backbone showed the best performance: validation score of 10.37, which is in the range of 5-6th places at the [public Leaderboard](https://www.kaggle.com/c/lyft-motion-prediction-autonomous-vehicles/leaderboard). Training for longer (especially the model with Xception71 backbone) is likely to improve the score. We observed that our validation scores had a very strong correlation with the scores on the public test set, but usually were lower on some fixed constant.   
 
 
-Beyond the models with $$3$$ output trajectories, we also trained a *** model with $$16$$ hypotheses*** which resulted in more diverse predictions.
+Beyond the models with $$3$$ output trajectories, we also trained a ***model with $$16$$ hypotheses*** which resulted in more diverse predictions.
 
 ![av-pipeline]({{ '/assets/images/Kaggle-Lyft/cnn_baseline_16mod.png' | relative_url }}) 
 {: style="width: 70%;" class="center"} 
@@ -234,15 +234,15 @@ Another attempt was to compute a weighted average of the clusters using the conf
 We speculate that the discrete nature of greedy non-maximum suppression and K-means significantly limits the possible solution space. 
 
 ![av-pipeline]({{ '/assets/images/Kaggle-Lyft/k_means.png' | relative_url }}) 
-{: style="width: 85%;" class="center"} 
+{: style="width: 93%;" class="center"} 
 *<font size="2"> Fig: Ensembling by clustering the hypotheses.</font>*
 
 To combat this shortcoming we considered an extension of the non-maximum suppression to the continuous case.
-And these naturally led us to the [Gaussian Mixture Model (GMM)](https://en.wikipedia.org/wiki/Mixture_model#Gaussian_mixture_model).
+And these naturally led us to the [Gaussian Mixture Model (GMM)](https://wiki.aalto.fi/pages/viewpage.action?pageId=151492301).
 We fit a mixture of 3 Gaussians to the pool of the hypotheses and used the obtained means of the Gaussians as the final predictions. 
 
 ![av-pipeline]({{ '/assets/images/Kaggle-Lyft/gmm.png' | relative_url }}) 
-{: style="width: 90%;" class="center"} 
+{: style="width: 100%;" class="center"} 
 *<font size="2"> Fig: Ensembling by fitting a Gaussian Mixture Model to the hypotheses.</font>*
 
 The optimized objective is very similar to the traditional Gaussian Mixture model objective. It is the log-likelihood of the input hypotheses.
@@ -266,7 +266,7 @@ In other words, a neural network has to take a set of hypotheses as input and pr
 As the model satisfying our needs we selected [Set Transformer](https://arxiv.org/abs/1810.00825).
 
 ![av-pipeline]({{ '/assets/images/Kaggle-Lyft/with_transformer.png' | relative_url }}) 
-{: style="width: 75%;" class="center"} 
+{: style="width: 85%;" class="center"} 
 *<font size="2"> Fig: Ensembling by using a Set Transformer.</font>*
 
 **Set Transformer** has an encoder that takes input hypotheses and their confidences and applies two [self-attention](https://papers.nips.cc/paper/7181-attention-is-all-you-need.pdf) blocks to them to produce feature vectors that encode all pairwise relations between the input hypotheses.
@@ -290,7 +290,7 @@ We used SGD with a relatively high learning rate of 0.01, batch size 64 (if not 
 Another important trick was gradient clipping (maximal magnitude was set to 2) which stabilized training, especially at the initial epochs. 
 
 ![Training loss]({{ '/assets/images/Kaggle-Lyft/train_loss.png' | relative_url }}) 
-{: style="width: 50%;" class="center"} 
+{: style="width: 65%;" class="center"} 
 *<font size="2"> Fig: Training with Cosine Annealing learning rate scheduler. Every next learning rate cycle loss value significantly drops.</font>*
 
 Significant score improvement was achieved after we allowed training samples to be without history at all (before that they were ignored). Such examples can be often encountered in the real-life test when a previously unseen car approaches the AV and the model has to predict the future motion of that car relying merely on its prior knowledge about other road agents.
@@ -338,7 +338,7 @@ To allow the model to see more various road situations in a fixed amount of time
 # Experiments
 
 <a name="Ablations"></a>
-## Alation studies
+## Ablation studies
 We conducted ablation studies on one of the intermediate ensemble (before the models converged).
 
 ![Results table 1]({{ '/assets/images/Kaggle-Lyft/table_ablations.png' | relative_url }}) 
