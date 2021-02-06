@@ -1,7 +1,7 @@
 ---
 layout: post
 comments: true
-title: "Winning solution for Kaggle challenge: Lyft Motion Prediction for Autonomous Vehicles."
+title: "Winning solution for Kaggle challenge: Lyft Motion Prediction for Autonomous Vehicles"
 date: 2021-02-05
 tags: kaggle cv
 thumbnail: "/assets/images/Kaggle-Lyft/thumbnail.png"
@@ -47,6 +47,10 @@ Team “Stochastic Uplift” members: [me](https://gdude.de/), [Dmytro Poplavski
 
 If you prefer video over text, I have also explained this solution in [YouTube video](https://youtu.be/3Yz8_x38qbc).
 
+<div style="margin: 0 auto;">
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/3Yz8_x38qbc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
 # Contents
 
 1. [Problem Description](#problem)  
@@ -66,7 +70,7 @@ If you prefer video over text, I have also explained this solution in [YouTube v
 
 This competition was organized by [Lyft Level 5](https://self-driving.lyft.com/level5/).
 
-Lyft used a fleet of cars equipped with LIDARS and cameras to collect a large dataset.
+Lyft used a fleet of cars equipped with [LIDARs](https://en.wikipedia.org/wiki/Lidar) and cameras to collect a large dataset.
 They were driving along the streets of Palo Alto and scanned the environment around the cars.
 
 ![Cars]({{ '/assets/images/Kaggle-Lyft/cars.png' | relative_url }}) 
@@ -121,7 +125,7 @@ Every time step is represented by two channels: (1) The mask representing the lo
           <img src="{{ '/assets/images/Kaggle-Lyft/motion_dataset_with_captions.png' | relative_url }}">
      </div>
 </div>
-*<font size="2"> Fig: Example of the agent and its history. In this case, the agent is an autonomous vehicle itself, but the dataset contains similar recordings for other cars as well. Colored lines depict road lanes.</font>*
+*<font size="2"> Fig: Example of the agent and its history. In this case, the agent is an autonomous vehicle itself, but the dataset contains similar recordings for other cars as well. Colored lines depict road lanes. [Source](https://self-driving.lyft.com/level5/prediction/).</font>*
 
 <blockquote class="marked">
 <p class="marked">
@@ -221,7 +225,7 @@ One can see that such a problem statement is closely related to a well known [No
 
 ![av-pipeline]({{ '/assets/images/Kaggle-Lyft/nms_boxes.png' | relative_url }}) 
 {: style="width: 60%;" class="center"} 
-*<font size="2"> Fig: Non-maximum suppression for detections.</font>*
+*<font size="2"> Fig: Non-maximum suppression for detections. [Source](https://pjreddie.com/darknet/yolov2/).</font>*
 
 A trivial way to do Non-maximum suppression is a greedy algorithm. We iteratively select the most confident detection while suppressing very similar but less confident ones.
 
