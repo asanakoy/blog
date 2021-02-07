@@ -34,6 +34,21 @@ p.marked {
     margin-left: 0px;
     
 }
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+}
+.video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 </style>
 
 ![Header]({{ '/assets/images/Kaggle-Lyft/Kaggle-Lyft-header.png' | relative_url }}) 
@@ -47,8 +62,8 @@ Team “Stochastic Uplift” members: [me](https://gdude.de/), [Dmytro Poplavski
 
 If you prefer video over text, I have also explained this solution in [YouTube video](https://youtu.be/3Yz8_x38qbc).
 
-<div style="margin: 0 auto;">
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/3Yz8_x38qbc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="container">
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/3Yz8_x38qbc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="video"></iframe>
 </div>
 
 # Contents
