@@ -4,7 +4,10 @@ comments: true
 title: "Binary Tree Right Side View"
 date: 2020-04-20
 tags: leetcode algorithms
+thumbnail: "/assets/images/leetcode/binary-tree-right-side-view-thumbnail.png"
 ---
+
+> Imagine yourself standing on the right side of it. Now return the values of the nodes you can see ordered from top to bottom.
 
 <!--more-->
 Given a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.

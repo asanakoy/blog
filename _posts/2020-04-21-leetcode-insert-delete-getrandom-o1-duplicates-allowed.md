@@ -4,6 +4,7 @@ comments: true
 title: "A Container for Insert, Delete and GetRandom in O(1) Time"
 date: 2020-04-20
 tags: leetcode algorithms
+thumbnail: "/assets/images/leetcode/insert-delete-getrandom-o1-thumbnail.png"
 ---
 
 > I have encountered a curious problem at leetcode. 
