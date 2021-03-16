@@ -62,8 +62,8 @@ p.marked {
 
 <br>
 
-In this post I will give a brief overview over the recent paper from Google Brain and UC Berkeley *Revisiting ResNets: Improved Training and Scaling Strategies*. 
-Authors introduce a new family of ResNet architectures -- **ResNet-RS**.
+In this post I will give a brief overview over the recent paper from Google Brain and UC Berkeley *[Revisiting ResNets: Improved Training and Scaling Strategies](https://arxiv.org/abs/2103.07579)*. 
+Authors introduce a new family of ResNet architectures-- **ResNet-RS**.
 
 # 🔥 Main Results
 - ResNet-RSs are 1.7x - 2.7x faster than [EfficientNets](https://arxiv.org/abs/1905.11946) on TPUs, while achieving similar or better accuracies on ImageNet.
