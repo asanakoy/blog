@@ -28,7 +28,7 @@
         <meta content="{{ site.description }}" property="og:description">
     {% endif %}
     {% if page.url %}
-        <meta content="{{ site.url }}{{ page.url }}" property="og:url">
+        <meta content="{{ page.url | absolute_url }}" property="og:url">
     {% endif %}
     {% if page.date %}
         <meta content="{{ page.date | date_to_xmlschema }}" property="article:published_time">
@@ -89,8 +89,8 @@
         <meta name="twitter:image" content="{{ rel_path | relative_url }}">
     {% elsif page.thumbnail %}
         <meta name="twitter:card"  content="summary_large_image">
-        <meta property="og:image" content="{{ page.thumbnail | relative_url }}" />
-        <meta name="twitter:image" content="{{ page.thumbnail | relative_url }}">
+        <meta name="twitter:image" content="{{ page.thumbnail | absolute_url }}">
+        <meta property="og:image" content="{{ page.thumbnail | absolute_url }}" />
     {% else %}
         <meta name="twitter:card"  content="summary">
         <meta name="twitter:image" content="{{ site.title_image }}">
