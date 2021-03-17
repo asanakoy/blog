@@ -6,27 +6,27 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %}</title>
-
-    <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 | escape }}">
-
-    <meta content="{{ site.title }}" property="og:site_name">
+    
     {% if page.title %}
-        <meta content="{{ page.title }}" property="og:title">
+    	{% assign local_title = page.title %}
+    	{% assign local_content_name = 'article' %}
     {% else %}
-        <meta content="{{ site.title }}" property="og:title">
-    {% endif %}
-    {% if page.title %}
-        <meta content="article" property="og:type">
-    {% else %}
-        <meta content="website" property="og:type">
+        {% assign local_title = site.title %}
+        {% assign local_content_name = 'website' %}
     {% endif %}
     {% if page.excerpt %}
-        <meta content="{{ page.excerpt | newline_to_br | strip_newlines | replace: '<br />', ' ' | strip_html | strip |  truncatewords: 50 }}" property="og:description">
+        {% assign local_description = page.excerpt | newline_to_br | strip_newlines | replace: '<br />', ' ' | strip_html | strip |  truncatewords: 50 %}
     {% else %}
-        <meta content="{{ site.description }}" property="og:description">
+        {% assign local_description = site.description %}
     {% endif %}
+    <title>{{ local_title | escape }}</title>
+    
+    <meta property="og:site_name" content="{{ site.title }}" >
+    <meta property="og:title" content="{{ local_title }}" >
+    <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 | escape }}">
+    <meta property="og:description" content="{{ local_description }}">
+    <meta property="og:type" content="{{ local_content_name }}" >
+    
     {% if page.url %}
         <meta content="{{ page.url | absolute_url }}" property="og:url">
     {% endif %}
@@ -48,6 +48,41 @@
     <link rel="stylesheet" href="{{ '/assets/css/fonts_from_medium.css' | relative_url }}">
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
     
+    <!-- Twitter cards -->
+    <meta name="twitter:site"    content="@{{ site.twitter_username }}">
+    <meta name="twitter:creator" content="@{{ site.twitter_username }}">
+    <meta name="twitter:title"   content="{{ local_title }}">
+            
+    {% if page.excerpt %}
+        <meta name="twitter:description" content="{{ page.excerpt }}">
+    {% else %}
+        <meta name="twitter:description" content="{{ site.description }}">
+    {% endif %}
+    {% if page.image %}
+        <meta name="twitter:card"  content="summary_large_image">
+        {% assign local_image_url = page.image | absolute_url %}
+    {% elsif page.thumbnail %}
+        <meta name="twitter:card"  content="summary_large_image">
+        {% assign local_image_url = page.thumbnail | absolute_url %}
+    {% else %}
+        <meta name="twitter:card"  content="summary">
+        {% assign local_image_url = site.title_image | absolute_url %}
+    {% endif %}
+    <meta name="twitter:image" content="{{ local_image_url }}">
+    <meta property="og:image" content="{{ local_image_url }}" />
+    <!-- end of Twitter cards -->
+    
+    <script type="application/ld+json">
+    {
+        "@context": "http://www.schema.org",
+        "@type": "CreativeWork",
+        "author: "{{ site.author }}",
+        "headline": "{{ local_title }}",
+        "description": "{{ local_description }}",
+        "thumbnailUrl": "{{ local_image_url }}",
+        "image": "{{ local_image_url }}"
+    }
+    </script>
 
     <!-- tell the browsers that we have a web feed -->
     <link rel="alternate" type="application/rss+xml" href="{{ '/feed.xml' | relative_url }}">
@@ -72,34 +107,5 @@
       }(document, 'script', 'facebook-jssdk'));
     </script>
 
-    <!-- Twitter cards -->
-    <meta name="twitter:site"    content="@{{ site.twitter_username }}">
-    <meta name="twitter:creator" content="@{{ site.twitter_username }}">
-    {% if page.title %}
-        <meta name="twitter:title"   content="{{ page.title }}">
-    {% else %}
-        <meta name="twitter:title"   content="{{ site.title }}">
-    {% endif %}
-            
-    {% if page.excerpt %}
-        <meta name="twitter:description" content="{{ page.excerpt }}">
-    {% else %}
-        <meta name="twitter:description" content="{{ site.description }}">
-    {% endif %}
-
-    {% if page.image %}
-        <meta name="twitter:card"  content="summary_large_image">
-        <meta name="twitter:image" content="{{ page.image | absolute_url }}">
-        <meta property="og:image" content="{{ page.image | absolute_url }}" />
-    {% elsif page.thumbnail %}
-        <meta name="twitter:card"  content="summary_large_image">
-        <meta name="twitter:image" content="{{ page.thumbnail | absolute_url }}">
-        <meta property="og:image" content="{{ page.thumbnail | absolute_url }}" />
-    {% else %}
-        <meta name="twitter:card"  content="summary">
-        <meta name="twitter:image" content="{{ site.title_image | absolute_url }}">
-        <meta property="og:image" content="{{ site.title_image | absolute_url }}" />
-    {% endif %}
-    <!-- end of Twitter cards -->
 
 </head>
