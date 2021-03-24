@@ -1,0 +1,85 @@
+~version: "2.1"
+
+### STEP 1: Define which pages get Instant View and which don't
+# We only want to generate Instant View pages for articles. Other things, like lists of articles, profiles, the about section, etc. should be ignored.
+?exists: /html/head/meta[@property="article:published_time"]
+
+
+### STEP 2: Define the essential elements
+
+# The 'body' and 'title' *properties* are required for an Instant View page to work.
+# 'Subtitle' is optional for IV pages, but Medium posts can have subtitles, so it is essential that we reflect this in our template.
+body:     //article
+title:    //article//header//h1[1]
+title:   //article//h1      # Looking for the 'title' in the article heading
+title:   //h1               # If not found, checking for any headings at all
+title:   //head/title       # If no luck either, trying the <title> tag
+
+author: //article//span[@itemprop='author']/span[@itemprop='name']/text()
+author:  //article/@author  # Get author name from the author attribute
+
+description: //head/meta[@property="og:description"]/@content
+
+channel: "@gradientdude"
+
+### Now we'll set a cover image. It's also not required, but we need one if we want our Instant view page to look cool.
+
+# If there is a header figure - use it
+cover: //article//figure[@class="header"]
+# Otherwise, set the first figure as the value of the 'cover' *property*.
+cover: //article//img[1]
+
+
+### Now to find an image for link previews. Links shared via Telegram will show an extended preview with a small picture in the chat. Let's try to find something for this image.
+
+image_url: //head/meta[@property="og:image"]/@content
+
+# If we don't have og:image, then we'll try to use a cover image as a link preview image.
+image_url: $cover/self::img/@src
+image_url: $cover/self::figure//img/@src
+
+
+
+# Remove inline icons
+@remove:   //article//img[contains(@style,'display:inline')]
+
+@debug: //article//div[@class="post-content"]/p/img
+
+exists: //article//div[@class="post-content"]/p/img
+@split_parent: //p/img
+@wrap(<figure>): //article//div[@class="post-content"]/img
+# Transform all p nodes, that immediately follow img nodes into figcaption
+@debug:  //article//figure
+<figcaption>: //p[./prev-sibling::figure]//font
+#Find the paragraph which followws the <figure>, find <figcaption> within it and move it up until we reach the same level ads <figure>, then move it inside <figure> after the <img> tag.
+@after_el("./../../self::p/prev-sibling::figure/img"): //figcaption
+
+
+exists: //article//div[@class="post-content"]/figcaption
+$orfan_caption: //article//div[@class="post-content"]/figcaption
+# selcet the previous sibling and find the last figure in that sibling
+
+# $closest_figure:  //article//div[@class="post-content"]/figcaption/prev-sibling::node()//figure[last()]
+# @debug: $closest_figure
+@debug: $orfan_caption
+# @debug: $orfan_caption/self::node()/prev-sibling::node()/*[last()]//figure[last()]
+# @debug: $orfan_caption/self::node()/prev-sibling::node()//figure[last()]
+$tmp: $orfan_caption/self::node()/prev-sibling::node()/*[last()]//figure[last()]
+# try another time if could not find on the previous line
+$tmp?: $orfan_caption/self::node()/prev-sibling::node()//figure[last()]
+@append_to($tmp): $orfan_caption
+
+@remove: //article//p[normalize-space() = '' and not(*)]
+
+# Fix how the pulled iotes look
+<aside>: //blockquote[has-class("marked")]
+
+
+# Cleaning
+@remove://*[@id='disqus_thread']/following-sibling::node()
+@remove: //*[@id='disqus_thread']
+@remove: //article/header/p[@class='post-meta']
+
+@before(<hr>): //div[@class='page-navigation']
+
+
