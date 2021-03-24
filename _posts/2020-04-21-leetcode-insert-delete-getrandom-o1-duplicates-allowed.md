@@ -154,6 +154,6 @@ public:
 
 Feel free to ask me any questions in the comments below. Feedback is also very appreciated.  
 
-- **Join** my telegram channel <img style="display:inline" src="{{ '/assets/images/telegram.ico' | relative_url }}"> [@gradientdude](https://t.me/gradientdude)
+- **Join** my telegram channel <img style="display:inline" src="{{ '/assets/images/telegram.png' | relative_url }}"> [@gradientdude](https://t.me/gradientdude)
 - **Follow** me on twitter <img style="display:inline; height:32px" src="{{ '/assets/images/twitter.png' | relative_url }}"> [@artsiom_s](https://twitter.com/artsiom_s)
 
