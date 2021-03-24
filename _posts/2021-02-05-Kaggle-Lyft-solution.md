@@ -157,10 +157,14 @@ Every time step is represented by two channels: (1) The mask representing the lo
 <figure>
   <div style="display:flex">
        <div style="flex:1;padding-right:5px;">
+            <figure>
             <img src="{{ '/assets/images/Kaggle-Lyft/motion_dataset_example.gif' | relative_url }}">
+            </figure>
        </div>
        <div style="flex:1;padding-left:5px;">
+            <figure>
             <img src="{{ '/assets/images/Kaggle-Lyft/motion_dataset_with_captions.png' | relative_url }}">
+            </figure>
        </div>
   </div>
   <figcaption>
