@@ -51,16 +51,20 @@ p.marked {
 
 </style>
 
-<figure>
+
 <div style="display:flex">
      <div style="flex:1;padding-right:5px;">
+          <figure>
           <img src="{{ '/assets/images/Revisiting-Resnets/speed_acc_pareto.png' | relative_url }}">
+          </figure>
      </div>
      <div style="flex:1;padding-left:5px;">
+          <figure>
           <img src="{{ '/assets/images/Revisiting-Resnets/speed_acc_pareto_curve_zoomed-in.png' | relative_url }}">
+          </figure>
      </div>
 </div>
-</figure>
+
 
 <br>
 

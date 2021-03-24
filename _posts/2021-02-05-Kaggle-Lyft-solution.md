@@ -154,23 +154,21 @@ For every agent we have from 0 to 50 history snapshots with a time interval of 0
 So our input can be represented as an image with $$ 3 + (50 + 1) * 2 = 105$$ channels. Here first 3 channels is the RGB map. Then we have 50 history time steps and one current.
 Every time step is represented by two channels: (1) The mask representing the location of the current agent, and (2) the mask representing all other agents nearby.
 
-<figure>
-  <div style="display:flex">
-       <div style="flex:1;padding-right:5px;">
-            <figure>
-            <img src="{{ '/assets/images/Kaggle-Lyft/motion_dataset_example.gif' | relative_url }}">
-            </figure>
-       </div>
-       <div style="flex:1;padding-left:5px;">
-            <figure>
-            <img src="{{ '/assets/images/Kaggle-Lyft/motion_dataset_with_captions.png' | relative_url }}">
-            </figure>
-       </div>
-  </div>
-  <figcaption>
-  Fig: Example of the agent and its history. In this case, the agent is an autonomous vehicle itself, but the dataset contains similar recordings for other cars as well. Colored lines depict road lanes. <a href="https://self-driving.lyft.com/level5/prediction/">Source</a>.
-  </figcaption>
-</figure>
+<div style="display:flex">
+     <div style="flex:1;padding-right:5px;">
+          <figure>
+          <img src="{{ '/assets/images/Kaggle-Lyft/motion_dataset_example.gif' | relative_url }}">
+          </figure>
+     </div>
+     <div style="flex:1;padding-left:5px;">
+          <figure>
+          <img src="{{ '/assets/images/Kaggle-Lyft/motion_dataset_with_captions.png' | relative_url }}">
+          </figure>
+     </div>
+</div>
+<figcaption>
+Fig: Example of the agent and its history. In this case, the agent is an autonomous vehicle itself, but the dataset contains similar recordings for other cars as well. Colored lines depict road lanes. <a href="https://self-driving.lyft.com/level5/prediction/">Source</a>.
+</figcaption>
 
 
 <blockquote class="marked">
