@@ -51,6 +51,7 @@ p.marked {
 
 </style>
 
+<figure>
 <div style="display:flex">
      <div style="flex:1;padding-right:5px;">
           <img src="{{ '/assets/images/Revisiting-Resnets/speed_acc_pareto.png' | relative_url }}">
@@ -59,6 +60,7 @@ p.marked {
           <img src="{{ '/assets/images/Revisiting-Resnets/speed_acc_pareto_curve_zoomed-in.png' | relative_url }}">
      </div>
 </div>
+</figure>
 
 <br>
 
@@ -79,40 +81,60 @@ Authors introduce a new family of ResNet architectures-- **ResNet-RS**.
 5. Adding two common and simple architectural changes: [Squeeze-and-Excitation](https://arxiv.org/abs/1709.01507) and [ResNet-D tricks](https://arxiv.org/abs/1812.01187).
 6. Decrease weight decay when using more regularization like dropout, augmentations, stochastic depth, etc.
 
-![Ablation_table]({{ '/assets/images/Revisiting-Resnets/improvements_ablation_table.png' | relative_url }})
-{: style="width: 100%;" class="center"}
-*<font size="2"> Table: Ablation studies on Imagenet</font>*
 
-![weight_decay]({{ '/assets/images/Revisiting-Resnets/decrease_weight_decay.png' | relative_url }})
-{: style="width: 100%;" class="center"}
+{% include img.html
+            src="Revisiting-Resnets/improvements_ablation_table.png"
+            alt="Ablation studies on ImageNet"
+            caption="Table: Ablation studies on ImageNet"
+            style="width: 100%;"
+            class="center"
+%}
+
+{% include img.html
+            src="Revisiting-Resnets/decrease_weight_decay.png"
+            alt="img"
+            style="width: 100%;"
+            class="center"
+%}
 
 ## ❓How to tune the hyperparameters?
 1. Scaling strategies found in small-scale regimes (e.g. on small models or with few training  epochs) fail to generalize to larger models or longer training iterations
 2. Run a small subset of models across different scales, for the full training epochs, to gain intuition on which dimensions are the most useful across model scales.
 3. Increase Image Resolution lower than [previously recommended](https://arxiv.org/abs/1905.11946). Larger image resolutions often yield diminishing returns.
 
-![scaling]({{ '/assets/images/Revisiting-Resnets/scaling_plots.png' | relative_url }})
-{: style="width: 100%;" class="center"}
+{% include img.html
+            src="Revisiting-Resnets/scaling_plots.png"
+            alt="img"
+            class="center"
+%}
 
 ## ⚔️FLOPs vs Latency
 While FLOPs provide a hardware-agnostic metric for assessing computational demand, they may not be indicative of actual latency times for training and inference. In custom hardware architectures (e.g. TPUs and GPUs), FLOPs are an especially poor proxy because operations [are often bounded by memory access costs and have different levels of optimization](https://arxiv.org/abs/1704.04760) on modern matrix multiplication units. The [inverted bottlenecks](https://arxiv.org/abs/1801.04381) used in EfficientNets employ depthwise convolutions with large activations and have a small compute to memory ratio (operational intensity) compared to the ResNet’s bottleneck blocks which employ dense convolutions on smaller activations. This makes EfficientNets less efficient 😂 on modern accelerators compared to ResNets. A ResNet-RS model with 1.8x more FLOPs than EfficientNet-B6 is 2.7x faster on a TPUv3.
 
-![Table]({{ '/assets/images/Revisiting-Resnets/memory-param_table-512.png' | relative_url }})
-{: style="width: 100%;" class="center"}
+{% include img.html
+            src="Revisiting-Resnets/memory-param_table-512.png"
+            alt="img"
+            class="center"
+%}
 
 ## ⚔️ Parameters vs Memory
 Although ResNet-RS has 3.8x more parameters and FLOPs than EfficeintNet with the same accuracy, the ResNet-RS model requires 2.3x less memory and runs ~3x faster on TPUs and GPUs.
 Parameter count does not necessarily dictate memory consumption during training because memory is often dominated by the size of the activations. And EfficientNets has large activations which cause a larger memory footprint because EfficientNets requires large image resolutions to match the performance of the ResNet-RSs. E.g, to get 84% top-1 ImageNet accuracy, EficientNet needs an input image of 528x528, while ResNet-RS - only 256x256.
 
-![img_size]({{ '/assets/images/Revisiting-Resnets/img_size_scaling.png' | relative_url }})
-{: style="width: 100%;" class="center"}
-*<font size="2"> Figure: Scaling properties of ResNets across varying modelscales.Error approximately scales as a power law with FLOPs in the lower FLOPs regime but the trend breaks for larger FLOPs. We observe diminishing returns of scaling the image resolutionsbeyond 320×320, which motivates the slow image resolution scaling. The scaling configurations run are width  multipliers [0.25,0.5,1.0,1.5,2.0],  depths [26,50,101,200,300,350,400] and image resolutions [128,160,224,320,448]. </font>*
-
+{% include img.html
+            src="Revisiting-Resnets/img_size_scaling.png"
+            alt="img"
+            caption="Figure: Scaling properties of ResNets across varying model scales. Error approximately scales as a power law with FLOPs in the lower FLOPs regime but the trend breaks for larger FLOPs. We observe diminishing returns of scaling the image resolutions beyond 320×320, which motivates the slow image resolution scaling. The scaling configurations run are width  multipliers [0.25,0.5,1.0,1.5,2.0],  depths [26,50,101,200,300,350,400] and image resolutions [128,160,224,320,448]."
+            class="center"
+%}
 
 ## More results
 
-![supp table]({{ '/assets/images/Revisiting-Resnets/supp_table.png' | relative_url }})
-{: style="width: 100%;" class="center"}
+{% include img.html
+            src="Revisiting-Resnets/supp_table.png"
+            alt="img"
+            class="center"
+%}
 
 <blockquote class="marked">
 <p class="marked">

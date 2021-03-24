@@ -1,0 +1,18 @@
+<!-- _includes/img.html -->
+
+<figure style="{{ include.style }}" class="{{ include.class }}"
+>
+    {% if include.url %}
+    <a href="{{ include.url }}" title="{{ include.alt }}" target="_blank">
+    {% endif %}
+        <img src="{{ "/assets/images/" | relative_url | append: include.src }}" alt="{{ include.alt }}"/>
+    {% if include.url %}
+    </a>
+    {% endif %}
+    {% if include.caption %}
+        <figcaption>{{ include.caption }}</figcaption>
+    {% endif %}
+    {% if include.cite %}
+        <cite>{{ Source: include.cite }}</cite>
+    {% endif %}
+</figure>

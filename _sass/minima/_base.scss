@@ -15,7 +15,7 @@ hr {
     border: 0;
     border-top: 1px solid $crimson-color-very-light;
     margin: 2em 0;
-    padding: 0; 
+    padding: 0;
 }
 
 /**
@@ -117,8 +117,10 @@ figure > img {
 
 figcaption {
   font-size: $small-font-size;
+  font-style: italic;
   color: $grey-color-dark;
   padding-bottom: 10px;
+  opacity: .8;
 }
 
 
