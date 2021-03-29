@@ -4,7 +4,7 @@ comments: true
 title: "Most of the Recent Advancements in Transformers are Useless"
 date: 2021-03-29
 tags: papers nlp transformers
-thumbnail: "/assets/images/sp/useless_transformers_results.jpg"
+thumbnail: "/assets/images/sp/useless_transformers_thumbnail.jpg"
 ---
 
 
