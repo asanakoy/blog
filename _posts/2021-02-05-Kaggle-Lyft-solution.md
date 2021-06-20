@@ -482,6 +482,17 @@ Solution source code and model weights: [GitHub repo](https://github.com/asanako
 Video explanation of the solution: [video](https://youtu.be/3Yz8_x38qbc).
 
 -----
+This article can be cited as:
+```
+@article{sanakoyeu2021lyft,
+  title   = "Winning Solution for Kaggle Challenge: Lyft Motion Prediction for Autonomous Vehicles.",
+  author  = "Sanakoyeu, Artsiom and Dmytro Poplavskiy and Artsem Zhyvalkouski",
+  journal = "gdude.de/blog",
+  year    = "2021",
+  url     = "https://gdude.de/blog/2021-02-05/Kaggle-Lyft-solution"
+}
+```
+-----
 
 Feel free to ask me any questions in the comments below. Feedback is also very appreciated.  
 
